@@ -2,6 +2,7 @@
     height: 190px;
     width: 270px;
     display: flex;
+    position: relative;
 }
 
 .price {
@@ -24,6 +25,7 @@
     width: 350px;
     height: 300px;
     padding-bottom: 10px;
+    position: relative;
 }
 
 .add-cart-btn {
@@ -55,9 +57,3 @@
 }
 
 
-.cart{
-    height: 100%;
-    width: 200px;
-    position: absolute;
-    background-color: black;
-}

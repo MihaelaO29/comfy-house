@@ -3,16 +3,16 @@ import { useState } from 'react';
 import logo from './img/logo.svg';
 import menu from './img/menu.png';
 import cart from './img/cart.png';
-import background from './img/background.jpeg';
 import './App.css';
 import Product from './product/product';
 import renderProduct from './product/product';
 
-interface IFurniture {
+export interface IFurniture {
   id: number;
   image: string;
   title: string;
   price: number;
+  quantity?: number;
 }
 
 const list: IFurniture[] = [
@@ -66,15 +66,57 @@ const list: IFurniture[] = [
   }
 ]
 
+
 function App() {
   const [products, setProducts] = useState(list);
+  const [seeCart, setSeeCart] = useState(true)
+  const [cartList, setCartList] = useState<IFurniture[]>([]);
+
+  const showCart = () => {
+    setSeeCart(true)
+  }
+
+  const closeCart = () => {
+    setSeeCart(false)
+  }
+
+  const addProductToCartList = (product: IFurniture) => {
+    setCartList([product])
+  }
 
   return (
     <div>
+      {seeCart ? (
+        <div className='cart-box'>
+          <div className='cart'>
+            <button onClick={closeCart} className='close-btn'> x </button>
+            <div className='cart-title'><h2>Your Cart</h2></div>
+            {cartList.map((cartItem) => (
+              <div className='items-selected'>
+                <img className='cart-img' src={cartItem.image} />
+                <div className='cart-items-added'>
+                  <p>{cartItem.title}</p>
+                  <p>{cartItem.price}</p>
+                  <button className='remove-btn'>remove</button>
+                </div>
+                <div className='change-quantity'>
+                  <p>1</p>
+                </div>
+              </div>
+            ))}
+            <div className='clear-cart'>
+              <button className='clear-cart-btn'>CLEAR CART</button>
+            </div>
+          </div>
+        </div>
+      ) : ''}
       <div className='navigation-bar'>
         <img src={menu} />
         <img src={logo} />
-        <img src={cart} />
+        <div className='menu-cart'>
+          <img onClick={showCart} src={cart} />
+          <div className='items-number-cart'>0</div>
+        </div>
       </div>
 
       <div className='background-img'>
@@ -87,11 +129,11 @@ function App() {
       <div className='description'>Our Products</div>
       <div className='products-list'>
         {products.map((productFromMap) => (
-          <Product product={productFromMap} />
+          <Product product={productFromMap} addProduct={addProductToCartList} />
         ))}
       </div>
 
-      <div className='cart'></div>
+
     </div>
   );
 }
