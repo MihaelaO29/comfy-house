@@ -115,7 +115,7 @@ function App() {
                   <button className='remove-btn'>remove</button>
                 </div>
                 <div className='change-quantity'>
-                  <p>1</p>
+                  <p>{cartItem.quantity}</p>
                 </div>
               </div>
             ))}
@@ -128,9 +128,11 @@ function App() {
       <div className='navigation-bar'>
         <img src={menu} />
         <img src={logo} />
-        <div className='menu-cart'>
-          <img onClick={showCart} src={cart} />
-          <div className='items-number-cart'>0</div>
+        <div onClick={showCart} className='menu-cart'>
+          <img src={cart} />
+          <div className='items-number-cart'>
+            {cartList.map((cartItem) => cartItem.quantity).reduce((prev, current) => prev + current, 0)}
+          </div>
         </div>
       </div>
 
