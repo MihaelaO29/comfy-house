@@ -12,7 +12,7 @@ export interface IFurniture {
   image: string;
   title: string;
   price: number;
-  quantity?: number;
+  quantity: number;
 }
 
 const list: IFurniture[] = [
@@ -20,56 +20,64 @@ const list: IFurniture[] = [
     id: 1,
     image: 'https://i.ibb.co/N141Nkh/product-1.jpg',
     title: 'Queen Panel Bed',
-    price: 10.99
+    price: 10.99,
+    quantity: 1
   },
   {
     id: 2,
     image: 'https://i.ibb.co/LhJwhB4/product-2.jpg',
     title: 'King Panel Bed',
-    price: 12.99
+    price: 12.99,
+    quantity: 1
   },
   {
     id: 3,
     image: 'https://i.ibb.co/C9Px1MK/product-3.jpg',
     title: 'Single Panel Bed',
-    price: 12.99
+    price: 12.99,
+    quantity: 1
   },
   {
     id: 4,
     image: 'https://i.ibb.co/wsCjr8f/product-4.jpg',
     title: 'Twin Panel Bed',
-    price: 22.99
+    price: 22.99,
+    quantity: 1
   },
   {
     id: 5,
     image: 'https://i.ibb.co/pddxNnJ/product-5.jpg',
     title: 'Fridge',
-    price: 88.99
+    price: 88.99,
+    quantity: 1
   },
   {
     id: 6,
     image: 'https://i.ibb.co/f1v6rY1/product-6.jpg',
     title: 'Dresser',
-    price: 32.99
+    price: 32.99,
+    quantity: 1
   },
   {
     id: 7,
     image: 'https://i.ibb.co/2S1S8PQ/product-7.jpg',
     title: 'Couch',
-    price: 45.99
+    price: 45.99,
+    quantity: 1
   },
   {
     id: 8,
     image: 'https://i.ibb.co/v4WBDz4/product-8.jpg',
     title: 'Table',
-    price: 33.99
+    price: 33.99,
+    quantity: 1
   }
 ]
 
 
 function App() {
   const [products, setProducts] = useState(list);
-  const [seeCart, setSeeCart] = useState(true)
+  const [seeCart, setSeeCart] = useState(false)
   const [cartList, setCartList] = useState<IFurniture[]>([]);
 
   const showCart = () => {
@@ -81,7 +89,14 @@ function App() {
   }
 
   const addProductToCartList = (product: IFurniture) => {
-    setCartList([product])
+    const indexOfProduct = cartList.findIndex((productFromCart) => productFromCart.id === product.id)
+    if (indexOfProduct === -1) {
+      setCartList([...cartList, product])
+    } else if (indexOfProduct > -1) {
+      const newCartList = [...cartList];
+      newCartList[indexOfProduct].quantity = newCartList[indexOfProduct].quantity + 1;
+      setCartList(newCartList);
+    }
   }
 
   return (
