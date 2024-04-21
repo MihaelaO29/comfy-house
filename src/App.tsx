@@ -3,6 +3,8 @@ import { useState } from 'react';
 import logo from './img/logo.svg';
 import menu from './img/menu.png';
 import cart from './img/cart.png';
+import up from './img/up.png';
+import down from './img/down.png';
 import './App.css';
 import Product from './product/product';
 import renderProduct from './product/product';
@@ -96,7 +98,32 @@ function App() {
       const newCartList = [...cartList];
       newCartList[indexOfProduct].quantity = newCartList[indexOfProduct].quantity + 1;
       setCartList(newCartList);
+
     }
+  }
+
+  const clearCart = () => {
+    setCartList([])
+    setSeeCart(false)
+  }
+
+
+  const handleIncreaseQuantity = (id: number) => {
+    const indexOfProduct = cartList.findIndex((productFromCart) => productFromCart.id === id)
+    const newCartList = [...cartList]
+    newCartList[indexOfProduct].quantity = newCartList[indexOfProduct].quantity + 1;
+    setCartList(newCartList)
+  }
+
+  const handleDeacreseQuantity = (id: number) => {
+    const indexOfProduct = cartList.findIndex((productFromCart) => productFromCart.id === id)
+    const newCartList = [...cartList]
+    newCartList[indexOfProduct].quantity = newCartList[indexOfProduct].quantity - 1;
+    setCartList(newCartList)
+  }
+
+  const handleDecreasingQuantiry = () => {
+
   }
 
   return (
@@ -115,12 +142,14 @@ function App() {
                   <button className='remove-btn'>remove</button>
                 </div>
                 <div className='change-quantity'>
+                  <img onClick={() => handleIncreaseQuantity(cartItem.id)} src={up} />
                   <p>{cartItem.quantity}</p>
+                  <img onClick={() => handleDeacreseQuantity(cartItem.id)} src={down} />
                 </div>
               </div>
             ))}
             <div className='clear-cart'>
-              <button className='clear-cart-btn'>CLEAR CART</button>
+              <button onClick={clearCart} className='clear-cart-btn'>CLEAR CART</button>
             </div>
           </div>
         </div>
@@ -131,7 +160,7 @@ function App() {
         <div onClick={showCart} className='menu-cart'>
           <img src={cart} />
           <div className='items-number-cart'>
-            {cartList.map((cartItem) => cartItem.quantity).reduce((prev, current) => prev + current, 0)}
+            <div> {cartList.map((cartItem) => cartItem.quantity).reduce((prev, current) => prev + current, 0)} </div>
           </div>
         </div>
       </div>

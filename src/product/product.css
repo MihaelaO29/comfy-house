@@ -39,6 +39,7 @@
     right: 0;
     transform: translateX(101%);
     transition: 0.2s all ease-in-out;
+    cursor: pointer;
 }
 
 .show_add_button {
