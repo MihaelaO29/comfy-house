@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import './product.css';
-import { IFurniture } from '../App';
 
 const Product = (props: any) => {
 
@@ -20,13 +19,13 @@ const Product = (props: any) => {
 
   
     return (
-        <div className='products'>
+        <div key={`product-${props.product.id}`} className='products'>
             <div
                 className='product_image_container'
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >
-                <img className='products-img' src={props.product.image} />
+                <img alt='Product' className='products-img' src={props.product.image} />
                 <button onClick={handleCart} className={`add-cart-btn ${showButton ? 'show_add_button' : ''}`}
                 >ADD TO CART</button>
             </div>

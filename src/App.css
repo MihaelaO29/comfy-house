@@ -45,6 +45,12 @@
   width: 200px;
   background-color: rgba(253, 190, 72, 0.966);
   border-radius: 30px;
+  cursor: pointer;
+}
+
+.shop-btn:hover {
+  background-color: rgb(255, 166, 0);
+  cursor: pointer;
 }
 
 .title {
@@ -89,7 +95,6 @@
   top: 0;
   right: 0;
   z-index: 3;
-  padding: 10px 0px 0px 10px;
 }
 
 .cart-details {
@@ -99,6 +104,7 @@
 }
 
 .close-btn {
+  cursor: pointer;
   height: 28px;
   width: 28px;
   background-color: black;
@@ -106,31 +112,41 @@
   border-radius: 20%;
   font-size: 20px;
   font-weight: 700;
+  margin: 14px 14px 0 14px
 }
 
-.clear-cart-btn{
+.clear-cart-btn {
+  margin-top: 20px;
   height: 50px;
   width: 200px;
   background-color: rgb(230, 154, 14);
 }
 
-.cart-img{
-  height: 75px;
-  width: 85px;
+.cart-img {
+  height: 85px;
+  width: 95px;
+  background-size: cover;
+  background-position: center;
 }
 
-.cart-items-added{
+.cart-items-added {
+  height: 100%;
+  justify-content: space-between;
+  margin-left: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
 }
 
-.items-selected{
-  padding-bottom: 20px;
-  display: flex;
+.items-selected {
   align-items: center;
-  justify-content: space-around;
+  margin: 12px 0;
+  background-color: #fff;
+  padding: 8px 14px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  border-radius: 5px;
 }
 
 .cart-box {
@@ -139,25 +155,23 @@
   justify-content: space-between;
 }
 
-.cart-title, .clear-cart{
+.cart-title,
+.clear-cart {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.remove-btn{
- border: 0;
- background-color: rgb(226, 225, 225);
- width: 45px;
- color: #575552;
+.cart-title {
+  height: 40px;
 }
 
-.menu-cart{
+.menu-cart {
   position: relative;
   cursor: pointer;
 }
 
-.items-number-cart{
+.items-number-cart {
   height: 21px;
   width: 21px;
   position: absolute;
@@ -169,13 +183,29 @@
   align-items: center;
   justify-content: center;
   border-radius: 30%;
-  color:white;
+  color: white;
 }
 
-.change-quantity{
+.change-quantity {
+  margin-right: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.bin-btn {
+  height: 17px;
+  width: 17px;
+}
+
+.cart_title,
+.cart_price {
+  margin: 0;
+}
+
+.cart_list {
+  padding: 12px;
+  height: calc(100vh - 200px);
+  overflow-y: scroll;
+}

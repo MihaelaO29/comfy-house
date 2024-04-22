@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import { useState } from 'react';
 import logo from './img/logo.svg';
 import menu from './img/menu.png';
 import cart from './img/cart.png';
 import up from './img/up.png';
 import down from './img/down.png';
+import bin from './img/bin.png';
 import './App.css';
 import Product from './product/product';
-import renderProduct from './product/product';
 
 export interface IFurniture {
   id: number;
@@ -76,18 +76,20 @@ const list: IFurniture[] = [
   }
 ]
 
-
 function App() {
-  const [products, setProducts] = useState(list);
+  const [products] = useState(list);
   const [seeCart, setSeeCart] = useState(false)
   const [cartList, setCartList] = useState<IFurniture[]>([]);
+  const shopNowRef: any = useRef(null);
 
   const showCart = () => {
-    setSeeCart(true)
+    setSeeCart(true);
+    document!.getElementById('html')!.style!.overflow = 'hidden';
   }
 
   const closeCart = () => {
-    setSeeCart(false)
+    setSeeCart(false);
+    document!.getElementById('html')!.style!.overflow = 'scroll';
   }
 
   const addProductToCartList = (product: IFurniture) => {
@@ -120,10 +122,23 @@ function App() {
     const newCartList = [...cartList]
     newCartList[indexOfProduct].quantity = newCartList[indexOfProduct].quantity - 1;
     setCartList(newCartList)
+
+    if (newCartList[indexOfProduct].quantity === 0) {
+      handleRemoveItemFromCart(id);
+    }
   }
 
-  const handleDecreasingQuantiry = () => {
+  const handleRemoveItemFromCart = (id: number) => {
+    const filtredList = cartList.filter(item => item.id !== id)
+    setCartList(filtredList)
+  }
 
+  const handleShopNowClick = () => {
+    // @ts-ignore
+    const { current } = shopNowRef;
+    if (current != null) {
+      current?.scrollIntoView({ behavior: "smooth" })
+    }
   }
 
   return (
@@ -133,21 +148,23 @@ function App() {
           <div className='cart'>
             <button onClick={closeCart} className='close-btn'> x </button>
             <div className='cart-title'><h2>Your Cart</h2></div>
-            {cartList.map((cartItem) => (
-              <div className='items-selected'>
-                <img className='cart-img' src={cartItem.image} />
-                <div className='cart-items-added'>
-                  <p>{cartItem.title}</p>
-                  <p>{cartItem.price}</p>
-                  <button className='remove-btn'>remove</button>
+            <div className='cart_list'>
+              {cartList.map((cartItem) => (
+                <div key={`cart-item-${cartItem.id}`} className='items-selected'>
+                  <div className='cart-img' style={{ backgroundImage: `url(${cartItem.image})` }} />
+                  <div className='cart-items-added'>
+                    <p className='cart_title'>{cartItem.title}</p>
+                    <p className='cart_price'>{cartItem.price}</p>
+                    <img alt='Remove' className='bin-btn' onClick={() => handleRemoveItemFromCart(cartItem.id)} src={bin} />
+                  </div>
+                  <div className='change-quantity'>
+                    <img alt='Increase' onClick={() => handleIncreaseQuantity(cartItem.id)} src={up} />
+                    <p style={{ margin: '4px 0' }}>{cartItem.quantity}</p>
+                    <img alt='Decrease' onClick={() => handleDeacreseQuantity(cartItem.id)} src={down} />
+                  </div>
                 </div>
-                <div className='change-quantity'>
-                  <img onClick={() => handleIncreaseQuantity(cartItem.id)} src={up} />
-                  <p>{cartItem.quantity}</p>
-                  <img onClick={() => handleDeacreseQuantity(cartItem.id)} src={down} />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
             <div className='clear-cart'>
               <button onClick={clearCart} className='clear-cart-btn'>CLEAR CART</button>
             </div>
@@ -155,10 +172,10 @@ function App() {
         </div>
       ) : ''}
       <div className='navigation-bar'>
-        <img src={menu} />
-        <img src={logo} />
+        <img alt='Menu' style={{ cursor: 'pointer' }} src={menu} />
+        <img alt='Logo' style={{ cursor: 'pointer' }} src={logo} />
         <div onClick={showCart} className='menu-cart'>
-          <img src={cart} />
+          <img alt='Cart' src={cart} />
           <div className='items-number-cart'>
             <div> {cartList.map((cartItem) => cartItem.quantity).reduce((prev, current) => prev + current, 0)} </div>
           </div>
@@ -168,14 +185,14 @@ function App() {
       <div className='background-img'>
         <div className='title-box'>
           <p className='title'>FURNITURE COLLECTION</p>
-          <button className='shop-btn'>SHOP NOW</button>
+          <button onClick={handleShopNowClick} className='shop-btn'>SHOP NOW</button>
         </div>
 
       </div>
-      <div className='description'>Our Products</div>
-      <div className='products-list'>
+      <div key='description' ref={shopNowRef} className='description'>Our Products</div>
+      <div key='products-list' className='products-list'>
         {products.map((productFromMap) => (
-          <Product product={productFromMap} addProduct={addProductToCartList} />
+          <Product key={`product-item-${productFromMap.id}`} product={productFromMap} addProduct={addProductToCartList} />
         ))}
       </div>
 
