@@ -144,7 +144,7 @@ function App() {
   const calucalteCartTotal = () => {
     const totalCalc = cartList.map((item) => item.price * item.quantity);
     const total = totalCalc.reduce((prev, current) => prev + current, 0)
-    return total
+    return total.toFixed(2)
   }
 
   return (
@@ -180,7 +180,7 @@ function App() {
       ) : ''}
       <div className='navigation-bar'>
         <img alt='Menu' style={{ cursor: 'pointer' }} src={menu} />
-        <img alt='Logo' style={{ cursor: 'pointer' }} src={logo} />
+        <img alt='Logo' className='logo' style={{ cursor: 'pointer' }} src={logo} />
         <div onClick={showCart} className='menu-cart'>
           <img alt='Cart' src={cart} />
           <div className='items-number-cart'>
@@ -191,7 +191,7 @@ function App() {
 
       <div className='background-img'>
         <div className='title-box'>
-          <p className='title'>FURNITURE COLLECTION</p>
+          <div className='title'>FURNITURE COLLECTION</div>
           <button onClick={handleShopNowClick} className='shop-btn'>SHOP NOW</button>
         </div>
 
