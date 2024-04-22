@@ -141,6 +141,12 @@ function App() {
     }
   }
 
+  const calucalteCartTotal = () => {
+    const totalCalc = cartList.map((item) => item.price * item.quantity);
+    const total = totalCalc.reduce((prev, current) => prev + current, 0)
+    return total
+  }
+
   return (
     <div>
       {seeCart ? (
@@ -165,6 +171,7 @@ function App() {
                 </div>
               ))}
             </div>
+            <div className='total-price'>Your Total: {calucalteCartTotal()}</div>
             <div className='clear-cart'>
               <button onClick={clearCart} className='clear-cart-btn'>CLEAR CART</button>
             </div>
