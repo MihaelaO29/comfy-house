@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import logo from './img/logo.svg';
 import menu from './img/menu.png';
@@ -8,6 +8,7 @@ import down from './img/down.png';
 import bin from './img/bin.png';
 import './App.css';
 import Product from './product/product';
+import _ from 'lodash';
 
 export interface IFurniture {
   id: number;
@@ -82,6 +83,21 @@ function App() {
   const [cartList, setCartList] = useState<IFurniture[]>([]);
   const shopNowRef: any = useRef(null);
 
+  useEffect(() => {
+    // @ts-ignore
+    const cartListFromStorage: IFurniture[] = JSON.parse(localStorage.getItem('cart'));
+    if (!_.isEmpty(cartListFromStorage) && _.isArray(cartListFromStorage)) {
+      setCartList(cartListFromStorage);
+    }
+  }, [])
+
+  useEffect(() => {
+    // @ts-ignore
+    if (!_.isEmpty(cartList)) {
+      localStorage.setItem('cart', JSON.stringify(cartList))
+    }
+  }, [cartList])
+
   const showCart = () => {
     setSeeCart(true);
     document!.getElementById('html')!.style!.overflow = 'hidden';
@@ -106,6 +122,7 @@ function App() {
 
   const clearCart = () => {
     setCartList([])
+    localStorage.setItem('cart', JSON.stringify([]))
     setSeeCart(false)
   }
 
@@ -131,6 +148,9 @@ function App() {
   const handleRemoveItemFromCart = (id: number) => {
     const filtredList = cartList.filter(item => item.id !== id)
     setCartList(filtredList)
+    if (_.isEmpty(filtredList)) {
+      localStorage.setItem('cart', JSON.stringify([]))
+    }
   }
 
   const handleShopNowClick = () => {
