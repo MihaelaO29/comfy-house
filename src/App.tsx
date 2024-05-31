@@ -116,7 +116,6 @@ function App() {
       const newCartList = [...cartList];
       newCartList[indexOfProduct].quantity = newCartList[indexOfProduct].quantity + 1;
       setCartList(newCartList);
-
     }
   }
 
@@ -124,8 +123,8 @@ function App() {
     setCartList([])
     localStorage.setItem('cart', JSON.stringify([]))
     setSeeCart(false)
+    document!.getElementById('html')!.style!.overflow = 'scroll';
   }
-
 
   const handleIncreaseQuantity = (id: number) => {
     const indexOfProduct = cartList.findIndex((productFromCart) => productFromCart.id === id)
