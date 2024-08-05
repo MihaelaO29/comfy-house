@@ -214,6 +214,10 @@
   justify-content: center;
 }
 
+.total-price {
+  margin-top: 5px;
+}
+
 .cart-title {
   height: 40px;
 }
