@@ -178,7 +178,7 @@ function App() {
                 <div key={`cart-item-${cartItem.id}`} className='items-selected'>
                   <div className='cart-img' style={{ backgroundImage: `url(${cartItem.image})` }} />
                   <div className='cart-items-added'>
-                    <p className='cart-title'>{cartItem.title}</p>
+                    <p className='cart-title-item'>{cartItem.title}</p>
                     <p className='cart-price'>{cartItem.price}</p>
                     <img alt='Remove' className='bin-btn' onClick={() => handleRemoveItemFromCart(cartItem.id)} src={bin} />
                   </div>
@@ -190,12 +190,14 @@ function App() {
                 </div>
               ))}
             </div>
+
             <div className='total-price'>Your Total: {calucalteCartTotal()}</div>
             <div className='clear-cart'>
               <button onClick={clearCart} className='clear-cart-btn'>CLEAR CART</button>
             </div>
           </div>
         </div>
+
       ) : ''}
       <div className='navigation-bar'>
         <img alt='Menu' style={{ cursor: 'pointer' }} src={menu} />
