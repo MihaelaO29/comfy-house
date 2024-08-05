@@ -39,6 +39,7 @@
   justify-content: center;
   position: relative;
   flex-direction: column;
+
   @media screen and (max-width: 760px) {
     width: 500px;
     height: 200px;
@@ -96,7 +97,6 @@
   @media screen and (max-width: 430px) {
     font-size: 15px;
   }
-
 }
 
 .description {
@@ -136,16 +136,17 @@
   top: 0;
   right: 0;
   z-index: 3;
+
   @media screen and (max-width: 500px) {
     height: 100vh;
     width: 100vw;
   }
+
   @media screen and (max-width: 300px) {
     height: 100vh;
     width: 100vw;
   }
 }
-
 
 .cart-details {
   display: flex;
@@ -248,23 +249,29 @@
 .bin-btn {
   height: 17px;
   width: 17px;
+  cursor: pointer;
 }
 
-.cart_title,
-.cart_price {
+.cart-title,
+.cart-price {
   margin: 0;
 }
 
-.cart_list {
+.cart-list {
   padding: 12px;
   height: calc(100vh - 200px);
   overflow-y: scroll;
+}
+
+.change-quantitiy-arrow {
+  cursor: pointer;
 }
 
 .logo {
   @media screen and (max-width: 500px) {
     transform: scale(0.8);
   }
+
   @media screen and (max-width: 360px) {
     transform: scale(0.6);
   }

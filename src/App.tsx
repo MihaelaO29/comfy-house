@@ -173,19 +173,19 @@ function App() {
           <div className='cart'>
             <button onClick={closeCart} className='close-btn'> x </button>
             <div className='cart-title'><h2>Your Cart</h2></div>
-            <div className='cart_list'>
+            <div className='cart-list'>
               {cartList.map((cartItem) => (
                 <div key={`cart-item-${cartItem.id}`} className='items-selected'>
                   <div className='cart-img' style={{ backgroundImage: `url(${cartItem.image})` }} />
                   <div className='cart-items-added'>
-                    <p className='cart_title'>{cartItem.title}</p>
-                    <p className='cart_price'>{cartItem.price}</p>
+                    <p className='cart-title'>{cartItem.title}</p>
+                    <p className='cart-price'>{cartItem.price}</p>
                     <img alt='Remove' className='bin-btn' onClick={() => handleRemoveItemFromCart(cartItem.id)} src={bin} />
                   </div>
                   <div className='change-quantity'>
-                    <img alt='Increase' onClick={() => handleIncreaseQuantity(cartItem.id)} src={up} />
+                    <img className='change-quantitiy-arrow' alt='Increase' onClick={() => handleIncreaseQuantity(cartItem.id)} src={up} />
                     <p style={{ margin: '4px 0' }}>{cartItem.quantity}</p>
-                    <img alt='Decrease' onClick={() => handleDeacreseQuantity(cartItem.id)} src={down} />
+                    <img className='change-quantitiy-arrow' alt='Decrease' onClick={() => handleDeacreseQuantity(cartItem.id)} src={down} />
                   </div>
                 </div>
               ))}
@@ -221,8 +221,6 @@ function App() {
           <Product key={`product-item-${productFromMap.id}`} product={productFromMap} addProduct={addProductToCartList} />
         ))}
       </div>
-
-
     </div>
   );
 }
