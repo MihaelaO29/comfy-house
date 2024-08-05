@@ -171,6 +171,7 @@
   height: 50px;
   width: 200px;
   background-color: rgb(230, 154, 14);
+  cursor: pointer;
 }
 
 .cart-img {
